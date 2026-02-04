@@ -102,7 +102,7 @@ export const DEFAULT_ACTIVITIES: Activity[] = [
     code: 414,
     naam: "Kamp groep 4-7",
     type: "Lumpsum",
-    bedrag: 5000,
+    bedrag: 14000,
     groepen: ["Groep 4", "Groep 5", "Groep 6", "Groep 7"],
   },
   {
