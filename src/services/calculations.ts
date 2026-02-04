@@ -15,15 +15,19 @@ function progressStudents(
   instroomKleuters: number
 ): StudentCount[] {
   const newCounts: StudentCount[] = [];
+  const currentG02 = counts.find((c) => c.groep === "Groep 0-2")?.aantal || 0;
 
   for (let i = 0; i < STUDENT_GROEPEN.length; i++) {
     const groep = STUDENT_GROEPEN[i];
 
     if (groep === "Groep 0-2") {
-      // New kindergarteners
-      newCounts.push({ groep, aantal: instroomKleuters });
+      // G0-2 contains 2 years of students: 50% stays (completing 1st year) + new kindergarteners
+      newCounts.push({ groep, aantal: Math.round(currentG02 * 0.5) + instroomKleuters });
+    } else if (groep === "Groep 3") {
+      // 50% of G0-2 moves to G3 (those completing 2nd year of kindergarten)
+      newCounts.push({ groep, aantal: Math.round(currentG02 * 0.5) });
     } else {
-      // Students from previous group
+      // Students from previous group (G8 students leave, not carried forward)
       const prevGroep = STUDENT_GROEPEN[i - 1];
       const prevCount = counts.find((c) => c.groep === prevGroep);
       newCounts.push({ groep, aantal: prevCount?.aantal || 0 });

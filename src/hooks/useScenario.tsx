@@ -110,12 +110,14 @@ export function ScenarioProvider({ children }: { children: ReactNode }) {
   }, [loadScenarios]);
 
   // Update full scenario
-  const updateScenario = useCallback(async (updatedScenario: Scenario) => {
+  const updateScenario = useCallback(async (updatedScenario: Scenario, reloadList = false) => {
     await storageService.saveScenario(updatedScenario);
     if (scenario?.id === updatedScenario.id) {
       setScenario(updatedScenario);
     }
-    await loadScenarios();
+    if (reloadList) {
+      await loadScenarios();
+    }
   }, [scenario, loadScenarios]);
 
   // Delete scenario
@@ -135,7 +137,7 @@ export function ScenarioProvider({ children }: { children: ReactNode }) {
     const scenarioToRename = await storageService.loadScenario(id);
     if (scenarioToRename) {
       scenarioToRename.naam = newNaam;
-      await updateScenario(scenarioToRename);
+      await updateScenario(scenarioToRename, true);
     }
   }, [updateScenario]);
 
@@ -176,7 +178,7 @@ export function ScenarioProvider({ children }: { children: ReactNode }) {
   const exportScenarioFn = useCallback(async (id: string) => {
     const json = await storageService.exportScenario(id);
     const scenarioToExport = await storageService.loadScenario(id);
-    const filename = `aiquitas_scenario_${scenarioToExport?.naam.replace(/\s+/g, '_') || 'export'}_${new Date().toISOString().slice(0, 10)}.json`;
+    const filename = `begrotingshulp_scenario_${scenarioToExport?.naam.replace(/\s+/g, '_') || 'export'}_${new Date().toISOString().slice(0, 10)}.json`;
     downloadJson(json, filename);
   }, []);
 
@@ -191,7 +193,7 @@ export function ScenarioProvider({ children }: { children: ReactNode }) {
   // Export all scenarios
   const exportAllScenarios = useCallback(async () => {
     const json = await storageService.exportAllScenarios();
-    const filename = `aiquitas_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    const filename = `begrotingshulp_backup_${new Date().toISOString().slice(0, 10)}.json`;
     downloadJson(json, filename);
   }, []);
 

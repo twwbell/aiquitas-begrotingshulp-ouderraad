@@ -59,12 +59,12 @@ export function RapportTab() {
         {/* Header */}
         <div className="flex items-center justify-between border-b pb-4 mb-6 print-avoid-break">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-white font-bold text-xl">
-              AI
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-white font-bold text-2xl">
+              €
             </div>
             <div>
-              <h1 className="text-2xl font-bold">AIquitas Begrotingshulp</h1>
-              <p className="text-muted-foreground">Financiële Prognose Ouderraad</p>
+              <h1 className="text-2xl font-bold">Begrotingshulp Ouderraad</h1>
+              <p className="text-muted-foreground">Financiële Prognose</p>
             </div>
           </div>
           <div className="text-right">
@@ -267,7 +267,7 @@ export function RapportTab() {
                     </TableCell>
                     <TableCell>{activity.naam}</TableCell>
                     <TableCell className="text-muted-foreground">
-                      {activity.type === 'Lumpsum' ? 'Vast' : 'Per leerling'}
+                      {activity.type === 'Lumpsum' ? 'Lumpsum' : 'Per leerling'}
                     </TableCell>
                     <TableCell className="text-right font-mono">
                       {formatCurrency(activity.bedrag)}
@@ -289,7 +289,7 @@ export function RapportTab() {
               day: 'numeric',
             })}
           </p>
-          <p className="mt-1">AIquitas Begrotingshulp Ouderraad</p>
+          <p className="mt-1">Begrotingshulp Ouderraad</p>
         </div>
       </div>
     </div>

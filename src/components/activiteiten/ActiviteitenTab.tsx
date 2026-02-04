@@ -143,6 +143,7 @@ export function ActiviteitenTab() {
                 <TableHead className="w-32">Type</TableHead>
                 <TableHead className="w-28 text-right">Lumpsum</TableHead>
                 <TableHead className="w-28 text-right">Per Leerling</TableHead>
+                <TableHead className="w-20 text-right">Aantal</TableHead>
                 <TableHead className="min-w-[280px]">Groepen</TableHead>
               </TableRow>
             </TableHeader>
@@ -222,6 +223,12 @@ export function ActiviteitenTab() {
                             {perLeerlingValue.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </div>
                         )}
+                      </div>
+                    </TableCell>
+                    {/* Aantal column - student count based on selected Groepen */}
+                    <TableCell>
+                      <div className="w-20 h-9 px-3 py-1 text-right font-mono text-muted-foreground bg-muted rounded-md flex items-center justify-end">
+                        {getActivityStudentCount(activity)}
                       </div>
                     </TableCell>
                     <TableCell>
