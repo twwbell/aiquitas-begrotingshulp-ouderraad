@@ -60,7 +60,7 @@ export function RapportTab() {
         <div className="flex items-center justify-between border-b pb-4 mb-6 print-avoid-break">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-white font-bold text-2xl">
-              €
+              🧮
             </div>
             <div>
               <h1 className="text-2xl font-bold">Begrotingshulp Ouderraad</h1>
@@ -256,24 +256,43 @@ export function RapportTab() {
                   <TableHead>Code</TableHead>
                   <TableHead>Activiteit</TableHead>
                   <TableHead>Type</TableHead>
+                  <TableHead className="text-right">Bedrag per Leerling</TableHead>
+                  <TableHead className="text-right">Aantal</TableHead>
                   <TableHead className="text-right">Bedrag</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {activiteiten.map((activity) => (
-                  <TableRow key={activity.code}>
-                    <TableCell className="font-mono text-muted-foreground">
-                      {activity.code}
-                    </TableCell>
-                    <TableCell>{activity.naam}</TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {activity.type === 'Lumpsum' ? 'Lumpsum' : 'Per leerling'}
-                    </TableCell>
-                    <TableCell className="text-right font-mono">
-                      {formatCurrency(activity.bedrag)}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {activiteiten.map((activity) => {
+                  const aantal = leerlingaantallen
+                    .filter((la) => activity.groepen.includes(la.groep))
+                    .reduce((sum, la) => sum + la.aantal, 0);
+                  const bedragPerLeerling = activity.type === 'PerLeerling'
+                    ? activity.bedrag
+                    : aantal > 0 ? activity.bedrag / aantal : 0;
+                  const totalBedrag = activity.type === 'PerLeerling'
+                    ? activity.bedrag * aantal
+                    : activity.bedrag;
+                  return (
+                    <TableRow key={activity.code}>
+                      <TableCell className="font-mono text-muted-foreground">
+                        {activity.code}
+                      </TableCell>
+                      <TableCell>{activity.naam}</TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {activity.type === 'Lumpsum' ? 'Lumpsum' : 'Per leerling'}
+                      </TableCell>
+                      <TableCell className="text-right font-mono">
+                        {formatCurrency(bedragPerLeerling, 2)}
+                      </TableCell>
+                      <TableCell className="text-right font-mono">
+                        {formatNumber(aantal)}
+                      </TableCell>
+                      <TableCell className="text-right font-mono">
+                        {formatCurrency(totalBedrag)}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </CardContent>

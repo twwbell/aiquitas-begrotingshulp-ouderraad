@@ -143,7 +143,7 @@ export function Header() {
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold text-xl">
-              €
+              🧮
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">
