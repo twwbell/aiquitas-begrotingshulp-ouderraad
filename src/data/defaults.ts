@@ -138,7 +138,7 @@ export const DEFAULT_SETTINGS: ScenarioSettings = {
   betalingspercentage: 80,
   kostenstijging: 2,
   jarenVooruit: 5,
-  instroomKleuters: 149, // Same as current Groep 0-2
+  instroomKleuters: 65, 
   startReserve: 19258.99,
   specifiekeBijdrageActiviteiten: [], // No activities selected by default
   specifiekeBijdragePercentage: 100, // 100% of activity cost
